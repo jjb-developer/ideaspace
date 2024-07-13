@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-scrollbar {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+
+.custom-scrollbar::-webkit-scrollbar {
+	width: 4px;
+	/*height: 10px;*/
+	background-color: #f1f2f3;
+}
+
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background-color: orange;
+	border-radius: 25px;
+}
