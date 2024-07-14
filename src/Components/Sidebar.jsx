@@ -1,4 +1,4 @@
-import { BiArchive, BiPlusCircle, BiBookOpen, BiBookContent, BiBookBookmark, BiClipboard, BiCog, BiDetail, BiDockLeft, BiFile, BiFileBlank, BiFolderPlus, BiSolidFolder, BiSolidNotepad, BiNotepad, BiFolder, BiFolderOpen, BiNote, BiSortUp, BiSortDown, BiSortAlt2, BiTrash, BiTrashAlt, BiX, BiExpandVertical, BiEditAlt, BiCollapseVertical, BiChevronDown, BiChevronUp } from 'react-icons/bi'
+import { BiArchive, BiPlusCircle, BiPlus, BiBookOpen, BiBookContent, BiBookBookmark, BiClipboard, BiCog, BiDetail, BiDockLeft, BiFile, BiFileBlank, BiFolderPlus, BiSolidFolder, BiSolidNotepad, BiNotepad, BiFolder, BiFolderOpen, BiNote, BiSortUp, BiSortDown, BiSortAlt2, BiTrash, BiTrashAlt, BiX, BiExpandVertical, BiEditAlt, BiCollapseVertical, BiChevronDown, BiChevronUp, BiListCheck, BiTask, BiListUl } from 'react-icons/bi'
 
 import { HiOutlineFolderAdd, HiOutlineClipboardList, HiOutlineClipboard, HiOutlinePencilAlt, HiOutlineSelector, HiOutlineSortAscending, HiOutlineSortDescending } from 'react-icons/hi'
 
@@ -9,28 +9,54 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function Sidebar(){
-	const { showBookmark, id_nota, setIdNota, id_etiqueta, setId_etiqueta, setModalNotas, setModalLabels, etiquetas, setEtiquetas, setNotas, notas } = store()
+	const { showBookmark, id_nota, setIdNota, id_etiqueta, setId_etiqueta, setModalNotas, setModalLabels, etiquetas, setEtiquetas, setNotas, notas, info, setId_Info, setAddInfo } = store()
 	const [height,setHeight] = useState(0)
+	const [filtro,setFiltro] = useState('all')
 	const navigate = useNavigate()
+	const color = {
+		1: 'text-yellow-600',
+		2: 'text-green-600',
+		3: 'text-blue-600',
+		4: 'text-orange-600',
+		5: 'text-purple-600',
+	}
+
 	return (
 		<aside className={`overflow-x-scroll custom-scrollbar shrink-0 overflow-x-hidden bg-white border-r-2 h-screen duration-200 ${showBookmark ? 'w-0':'w-72'}`}>
 			<div className={`w-72 shrink-0 duration-100 delay-100 ${showBookmark ? '-translate-x-64':'translate-x-0'}`}>
-				<div className='flex items-center justify-between border-b-2 h-12 px-5'>
+				<div className='flex items-center justify-between border-b-2 h-12 pl-5'>
 					<div className='flex items-center gap-x-2'>
 						<BiBookContent className='text-[1.3rem]'/>
 						<h3 className='text-[1.05rem]'>Bookmark</h3>
 					</div>
-					<button>
-						<BiCog className='text-[1.3rem]'/>
+					<button onClick={()=>setAddInfo(true)} className='w-14 h-full flex items-center justify-center hover:bg-yellow-200 duration-200'>
+						<BiPlus className='text-[1.3rem]'/>
 					</button>
 				</div>
 				<div className='flex items-center border-b-2 h-12'>
-					<button onClick={()=>setModalLabels(true)} className='w-1/4 h-full hover:bg-yellow-200 duration-200'><HiOutlineFolderAdd className='text-[1.35rem] mx-auto'/></button>
-					<button onClick={()=>setModalNotas(true)} className='w-1/4 h-full hover:bg-yellow-200 duration-200'><HiOutlineClipboard className='text-[1.35rem] mx-auto'/></button>
-					<button className='w-1/4 h-full hover:bg-yellow-200 duration-200'><HiOutlineSortDescending className='text-[1.35rem] mx-auto'/></button>
-					<button className='w-1/4 h-full hover:bg-yellow-200 duration-200'><HiOutlineSelector className='text-[1.35rem] mx-auto'/></button>
+					<button onClick={()=>setFiltro('note')} className='w-1/4 h-full hover:bg-yellow-200 duration-200'><BiClipboard className='text-[1.35rem] mx-auto'/></button>
+					<button onClick={()=>setFiltro('list')} className='w-1/4 h-full hover:bg-yellow-200 duration-200'><BiListUl className='text-[1.35rem] mx-auto'/></button>
+					<button onClick={()=>setFiltro('task')} className='w-1/4 h-full hover:bg-yellow-200 duration-200'><BiTask className='text-[1.35rem] mx-auto'/></button>
+					<button onClick={()=>setFiltro('all')} className='w-1/4 h-full hover:bg-yellow-200 duration-200'><BiArchive className='text-[1.35rem] mx-auto'/></button>
 				</div>
 
+				{ info && (<ul className='h-full mb-16'>
+					{ info.filter((item)=>item.category === filtro || filtro === 'all').map((item,index)=> <li key={index} className='flex items-center h-12 px-3 hover:bg-zinc-200 duration-300 cursor-pointer'>
+						<div onClick={()=>setId_Info(item.id_info)} className='flex gap-x-2 items-center w-full h-full'>
+							{ item.category === 'note' && <BiClipboard className={`text-[1.4rem] ${color[item.color]}`}/> }
+							{ item.category === 'task' && <BiTask className={`text-[1.4rem] ${color[item.color]}`}/> }
+							{ item.category === 'list' && <BiListUl className={`text-[1.4rem] ${color[item.color]}`}/> }
+							<span className='text-[0.97rem] tracking-tight capitalize'>{item.title}</span>
+						</div>
+					</li>)}
+				</ul>) }
+			</div>
+		</aside>
+	)
+}
+
+
+/*
 
 				{ etiquetas && (<div className='h-full mb-16'>
 					{ etiquetas.map((etiqueta,index)=>{
@@ -82,7 +108,5 @@ export default function Sidebar(){
 						)
 					})}
 				</div>)}
-			</div>
-		</aside>
-	)
-}
+
+*/

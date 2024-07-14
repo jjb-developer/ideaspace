@@ -7,7 +7,7 @@ import store from '../utils/store'
 export default function Login(){
 
 	const navigate = useNavigate()
-	const { setUserActive } = store()
+	const { setUserActive, setInfo } = store()
 	const [body,setBody] = useState({
 		username: "",
 		password: "",

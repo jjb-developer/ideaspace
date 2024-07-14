@@ -20,7 +20,13 @@ const store = create((set)=>({
 	etiquetas: [],
 	setEtiquetas: (labels)=> set((state)=> ({...state, etiquetas: labels})),
 	notas: [],
-	setNotas: (notes)=> set((state)=> ({...state, notas: notes}))
+	setNotas: (notes)=> set((state)=> ({...state, notas: notes})),
+	id_info: 0,
+	setId_Info: (id)=> set((state)=> ({...state, id_info: id})),
+	info: [],
+	setInfo: (data)=> set((state)=> ({...state, info: data})),
+	addInfo: false,
+	setAddInfo: (bool)=> set((state)=> ({...state, addInfo: bool}))
 }))
 
 export default store;

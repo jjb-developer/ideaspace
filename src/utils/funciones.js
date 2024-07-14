@@ -8,14 +8,14 @@ export function userLogin(body,navigate,setActive){
 		body: JSON.stringify(body)
 	})
 	.then(response=>response.json())
-	.then(info=>{
-		if(info.status == 200){
-			localStorage.setItem("token", info.token)
-			localStorage.setItem("username", info.username)
+	.then(data=>{
+		if(data.status == 200){
+			localStorage.setItem("token", data.token)
+			localStorage.setItem("username", data.username)
 			navigate('/index')
 			setActive(true)
 		} else {
-			console.info(info)
+			console.info(data)
 		}
 	})
 
@@ -41,9 +41,9 @@ export function register(body){
 
 
 
-export function getUserInfo(setLabels,setNotes,navigate){
+export function getUserInfo(setInfo,navigate){
 
-	fetch('http://localhost:8081/index', {
+	return fetch('http://localhost:8081/index', {
 		method: "GET",
 		headers: {
 			"Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -52,8 +52,7 @@ export function getUserInfo(setLabels,setNotes,navigate){
 	.then(res => res.json())
 	.then(data => {
 		if(data.code === 200){
-			setLabels(data.etiquetas)
-			setNotes(data.notas)
+			setInfo(data.info)
 		} else {
 			navigate('/')
 		}
@@ -118,6 +117,27 @@ export function allNotes(setState){
 
 
 
+export function funcAddInfo(category,title,details){
+	//console.info({'category': category, 'title': title, 'details': details})
+	return fetch(`http://localhost:8081/info`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "Application/json",
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		},
+		body: JSON.stringify({'category': category, 'title': title, 'details': details, 'color': 5, 'priority': 3})
+	})
+	.then(res => res.json())
+	.then(data => {
+		if(data.code === 201) console.info(`Tu ${category} fue agregada satisfactoriamente!.`)
+		else return data
+	})
+	.catch(error=> console.info(error))
+}
+
+
+
+
 export function addNote(id_etiqueta,nueva_nota,detalles_note,setState){
 	return fetch(`http://localhost:8081/note`, {
 		method: "POST",
@@ -138,10 +158,9 @@ export function addNote(id_etiqueta,nueva_nota,detalles_note,setState){
 
 
 
-
 export function updateLabel(id_label,body,setState){
 
-	fetch(`http://localhost:8081/label/${id_label}`, {
+	return fetch(`http://localhost:8081/label/${id_label}`, {
 		method: 'PATCH',
 		headers: {
 			"Content-Type": "Application/json",
@@ -163,7 +182,7 @@ export function updateLabel(id_label,body,setState){
 
 export function updateNote(id_nota,body,id_etiqueta,setState){
 
-	fetch(`http://localhost:8081/note/${id_nota}`, {
+	return fetch(`http://localhost:8081/note/${id_nota}`, {
 		method: 'PATCH',
 		headers: {
 			"Content-Type": "Application/json",
@@ -185,7 +204,7 @@ export function updateNote(id_nota,body,id_etiqueta,setState){
 
 export function deleteLabel(id_label){
 
-	fetch(`http://localhost:8081/label/${id_label}`, {
+	return fetch(`http://localhost:8081/label/${id_label}`, {
 		method: 'DELETE',
 		headers: {
 			"Content-Type": "Application/json",
@@ -211,7 +230,7 @@ export function deleteLabel(id_label){
 
 export function deleteNote(id_nota){
 
-	fetch(`http://localhost:8081/note/${id_nota}`, {
+	return fetch(`http://localhost:8081/note/${id_nota}`, {
 		method: 'DELETE',
 		headers: {
 			"Content-Type": "Application/json",

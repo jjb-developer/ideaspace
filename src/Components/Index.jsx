@@ -1,28 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import store from '../utils/store'
-import { BiEditAlt, BiTrash, BiPlusCircle, BiSave, BiBookBookmark } from "react-icons/bi"
-import { getNotes, addLabel, addNote, getUserInfo, updateLabel, deleteLabel, updateNote, deleteNote } from '../utils/funciones'
+import { BiEditAlt, BiBookBookmark } from "react-icons/bi"
+import { getUserInfo } from '../utils/funciones'
 
 import Sidebar from './Sidebar.jsx' //Refactorizar
-import ModalForLabels from './ModalForLabels.jsx'
-import ModalForNotes from './ModalForNotes.jsx'
+import ModalAddInfo from './ModalAddInfo.jsx'
 import Note from './Note.jsx'
 import { useNavigate } from "react-router-dom";
 
 
 export default function Index(){
 	const navigate = useNavigate()
-	const { showBookmark, etiquetas, setEtiquetas, id_nota, notas, setNotas, id_etiqueta, setId_etiqueta, setShowBookmark, modalNotas, setModalNotas, modalLabels, setModalLabels, labelUpdate, setLabelUpdate, noteUpdate, setNoteUpdate } = store()
+	const { showBookmark, info, addInfo, setInfo, setEtiquetas, id_nota, notas, setNotas, id_etiqueta, setId_etiqueta, setShowBookmark, modalNotas, setModalNotas, modalLabels, setModalLabels, labelUpdate, setLabelUpdate, noteUpdate, setNoteUpdate } = store()
 	useEffect(()=>{
-		getUserInfo(setEtiquetas,setNotas,navigate)
+		getUserInfo(setInfo,navigate)
 		console.info('render index.jsx')
 		console.info('call to <getUserInfo()>')
 	},[])
 
 	return (
 		<main className='h-screen overflow-hidden'>
-			{ modalLabels && <ModalForLabels/> }
-			{ modalNotas && <ModalForNotes/> }
+			{ addInfo && <ModalAddInfo/> }
 			<div className='overflow-x-hidden'>
 		      <div className='h-16 border-b-2 flex flex-col items-center gap-4 sm:flex-row sm:justify-between'>
 		      	<button onClick={()=>setShowBookmark(!showBookmark)} className='px-5 h-full hover:text-blue-600 hover:bg-blue-50 duration-200'><BiBookBookmark className='text-[28px]'/></button>
