@@ -3,7 +3,7 @@ import store from '../utils/store'
 export default function Note(){
 	const { notas, id_nota, showBookmark } = store()
 	return (
-		<article className={`duration-200 flex-grow w-full bg-blue-100`}>
+		<article className={`duration-200 flex-grow w-full bg-zinc-50`}>
 		{ notas?.filter((nota)=>{
 			if(nota.id_note === id_nota){
 				return nota }}).map((nota,index)=>{

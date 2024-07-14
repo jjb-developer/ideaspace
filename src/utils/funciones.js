@@ -22,9 +22,26 @@ export function userLogin(body,navigate,setActive){
 }
 
 
+//(nombre, apellido, email, password, username, role)
+export function register(body){
+	fetch('http://localhost:8081/register', {
+		method: 'POST',
+		headers: {
+			"Content-Type": "Application/json"
+		},
+		body: JSON.stringify(body)
+	})
+	.then(res=>res.json())
+	.then(data=>{
+		if(data.code === 200) console.info('Usuario registrado exitosamente!.')
+		else console.info("error en la query de register")
+	})
+	.catch(error=>console.error(error))
+}
 
 
-export function getUserInfo(setState,navigate){
+
+export function getUserInfo(setLabels,setNotes,navigate){
 
 	fetch('http://localhost:8081/index', {
 		method: "GET",
@@ -35,7 +52,8 @@ export function getUserInfo(setState,navigate){
 	.then(res => res.json())
 	.then(data => {
 		if(data.code === 200){
-			setState(data.etiquetas)
+			setLabels(data.etiquetas)
+			setNotes(data.notas)
 		} else {
 			navigate('/')
 		}
@@ -165,7 +183,7 @@ export function updateNote(id_nota,body,id_etiqueta,setState){
 
 
 
-export function deleteLabel(id_label,setEtiquetas){
+export function deleteLabel(id_label){
 
 	fetch(`http://localhost:8081/label/${id_label}`, {
 		method: 'DELETE',
@@ -177,25 +195,21 @@ export function deleteLabel(id_label,setEtiquetas){
 	.then(response=>response.json())
 	.then(info=>{
 		if(info.code === 201){
-			fetch('http://localhost:8081/index', {
-				method: "GET",
-				headers: {
-					"Authorization": `Bearer ${localStorage.getItem("token")}`
-				}
-			})
-			.then(res => res.json())
-			.then(data => setEtiquetas(data.etiquetas))
-			.catch(error=> console.info(error))			
+			console.info('Etiqueta eliminada satisfactoriamente!.')
+		} else {
+			console.info('Error en la query para eliminar Etiqueta de la DB!.')
 		}
 	})
-
+	.catch(error=>{
+		console.error("Ha ocurrido un error:", error)
+	})
 }
 
 
 
 
 
-export function deleteNote(id_nota,id_label,setState){
+export function deleteNote(id_nota){
 
 	fetch(`http://localhost:8081/note/${id_nota}`, {
 		method: 'DELETE',
@@ -205,9 +219,14 @@ export function deleteNote(id_nota,id_label,setState){
 		}
 	})
 	.then(response=> response.json())
-	.then(info=>{
-		getNotes(id_label,setState)
-		console.info(info.code)
+	.then(data=>{
+		if(data.code === 201){
+			console.info('Nota eliminada satisfactoriamente!.')
+		} else {
+			console.info('Error en la query para eliminar Nota de la DB!.')
+		}
 	})
-
+	.catch(error=>{
+		console.error("Ha ocurrido un error:", error)
+	})
 }

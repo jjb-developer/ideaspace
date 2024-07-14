@@ -16,6 +16,6 @@
 
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-	background-color: orange;
+	background-color: #999;
 	border-radius: 25px;
 }
