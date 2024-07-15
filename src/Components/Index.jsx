@@ -10,12 +10,14 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function Index(){
+
+
+	const { showBookmark, info, id_info, addInfo, setInfo, setShowBookmark, setAddInfo, setItemUpdate } = store()
 	const navigate = useNavigate()
-	const { showBookmark, info, id_info, addInfo, setInfo, setEtiquetas, id_nota, notas, setNotas, id_etiqueta, setId_etiqueta, setShowBookmark, modalNotas, setModalNotas, modalLabels, setModalLabels, labelUpdate, setLabelUpdate, noteUpdate, setNoteUpdate, setAddInfo, setItemUpdate } = store()
+
 	useEffect(()=>{
 		getUserInfo(setInfo,navigate)
-		console.info('render index.jsx [ getUserInfo() ]')
-		console.info(info)
+		console.info(`[ Bienvenido ${localStorage.getItem('username')} ]`)
 	},[])
 
 	return (

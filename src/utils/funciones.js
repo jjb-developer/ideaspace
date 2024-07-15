@@ -1,6 +1,8 @@
+//--------------------------  LOGIN  -----------------------------//
+
 export function userLogin(body,navigate,setActive){
 
-	fetch('http://localhost:8081/login', {
+	fetch(`${import.meta.env.VITE_URLocal}/login`, {
 		method: 'POST',
 		headers: {
 			"Content-Type": "Application/json"
@@ -22,9 +24,12 @@ export function userLogin(body,navigate,setActive){
 }
 
 
-//(nombre, apellido, email, password, username, role)
+
+
+//--------------------------  REGISTER  -----------------------------//
+
 export function register(body){
-	fetch('http://localhost:8081/register', {
+	fetch(`${import.meta.env.VITE_URLocal}/register`, {
 		method: 'POST',
 		headers: {
 			"Content-Type": "Application/json"
@@ -41,9 +46,12 @@ export function register(body){
 
 
 
+
+//--------------------------  INFO  -----------------------------//
+
 export function getUserInfo(setInfo,navigate){
 
-	return fetch('http://localhost:8081/index', {
+	return fetch(`${import.meta.env.VITE_URLocal}/info`, {
 		method: "GET",
 		headers: {
 			"Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -63,62 +71,9 @@ export function getUserInfo(setInfo,navigate){
 
 
 
-
-export function addLabel(nueva_etiqueta,setEtiquetas){
-	return fetch(`http://localhost:8081/label`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "Application/json",
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
-		},
-		body: JSON.stringify({new_label: nueva_etiqueta})
-	})
-	.then(res => res.json())
-	.then(data =>{
-		if(data.code === 201) return getUserInfo(setEtiquetas)
-		else return data
-	})
-	.catch(error=> console.info(error))
-}
-
-
-
-
-export function getNotes(id_label, setState){
-	return fetch(`http://localhost:8081/note`, {
-		method: "GET",
-		headers: {
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
-		}
-	})
-	.then(res => res.json())
-	.then(data => setState(data.notas))
-	.catch(error=> console.info(error))
-}
-
-
-
-
-
-export function allNotes(setState){
-	return fetch(`http://localhost:8081/note`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "Application/json",
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
-		}
-	})
-	.then(res => res.json())
-	.then(data => setState(data.notas))
-	.catch(error=> console.info(error))
-}
-
-
-
-
 export function funcAddInfo(category,title,details){
-	//console.info({'category': category, 'title': title, 'details': details})
-	return fetch(`http://localhost:8081/info`, {
+
+	return fetch(`${import.meta.env.VITE_URLocal}/info`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "Application/json",
@@ -138,7 +93,7 @@ export function funcAddInfo(category,title,details){
 
 
 export function funcUpdateInfo(id_info,category,title,details){
-	return fetch(`http://localhost:8081/info`, {
+	return fetch(`${import.meta.env.VITE_URLocal}/info`, {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "Application/json",
@@ -158,7 +113,7 @@ export function funcUpdateInfo(id_info,category,title,details){
 
 
 export function funcDeleteInfo(id_info){
-	return fetch(`http://localhost:8081/info`, {
+	return fetch(`${import.meta.env.VITE_URLocal}/info`, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "Application/json",
@@ -174,124 +129,3 @@ export function funcDeleteInfo(id_info){
 	.catch(error=> console.info(error))
 }
 
-
-
-
-
-
-
-
-
-
-
-export function addNote(id_etiqueta,nueva_nota,detalles_note,setState){
-	return fetch(`http://localhost:8081/note`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "Application/json",
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
-		},
-		body: JSON.stringify({id_label: id_etiqueta, note: nueva_nota, details_note: detalles_note})
-	})
-	.then(res => res.json())
-	.then(data => {
-		if(data.code === 201) return getNotes(id_etiqueta,setState)
-		else return data
-	})
-	.catch(error=> console.info(error))
-}
-
-
-
-
-export function updateLabel(id_label,body,setState){
-
-	return fetch(`http://localhost:8081/label/${id_label}`, {
-		method: 'PATCH',
-		headers: {
-			"Content-Type": "Application/json",
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
-		},
-		body: JSON.stringify(body)
-	})
-	.then(response=>response.json())
-	.then(data=>{
-		if(data.code === 201) return getUserInfo(setState)
-		else console.info(data)
-	})
-
-}
-
-
-
-
-
-export function updateNote(id_nota,body,id_etiqueta,setState){
-
-	return fetch(`http://localhost:8081/note/${id_nota}`, {
-		method: 'PATCH',
-		headers: {
-			"Content-Type": "Application/json",
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
-		},
-		body: JSON.stringify(body)
-	})
-	.then(response=>response.json())
-	.then(data=>{
-		if(data.code === 201) return getNotes(id_etiqueta,setState)
-		else console.info(data)
-	})
-
-}
-
-
-
-
-
-export function deleteLabel(id_label){
-
-	return fetch(`http://localhost:8081/label/${id_label}`, {
-		method: 'DELETE',
-		headers: {
-			"Content-Type": "Application/json",
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
-		}
-	})
-	.then(response=>response.json())
-	.then(info=>{
-		if(info.code === 201){
-			console.info('Etiqueta eliminada satisfactoriamente!.')
-		} else {
-			console.info('Error en la query para eliminar Etiqueta de la DB!.')
-		}
-	})
-	.catch(error=>{
-		console.error("Ha ocurrido un error:", error)
-	})
-}
-
-
-
-
-
-export function deleteNote(id_nota){
-
-	return fetch(`http://localhost:8081/note/${id_nota}`, {
-		method: 'DELETE',
-		headers: {
-			"Content-Type": "Application/json",
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
-		}
-	})
-	.then(response=> response.json())
-	.then(data=>{
-		if(data.code === 201){
-			console.info('Nota eliminada satisfactoriamente!.')
-		} else {
-			console.info('Error en la query para eliminar Nota de la DB!.')
-		}
-	})
-	.catch(error=>{
-		console.error("Ha ocurrido un error:", error)
-	})
-}

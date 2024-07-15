@@ -3,7 +3,7 @@ import { BiLogOut } from 'react-icons/bi'
 import store from '../utils/store'
 
 export default function Navbar(){
-	const { userActive, setUserActive, setEtiquetas, setNotas } = store()
+	const { userActive, setUserActive } = store()
 	const navigate = useNavigate()
 	return (
 		<nav className='h-20 border-b-2 flex items-center justify-between px-[7.5%]'>
@@ -21,8 +21,6 @@ export default function Navbar(){
 				<button onClick={()=>{
 					navigate('/')
 					setUserActive(false)
-					setEtiquetas([])
-					setNotas([])
 					localStorage.removeItem('username')
 					localStorage.removeItem('token')
 				}} className='py-1.5 px-1.5 rounded bg-rose-100 hover:bg-rose-200 duration-300'>

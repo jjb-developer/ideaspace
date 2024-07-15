@@ -1,13 +1,17 @@
 import { BiPlusCircle } from 'react-icons/bi'
 import store from '../utils/store'
-import { updateNote, addNote, funcAddInfo, funcUpdateInfo, getUserInfo } from '../utils/funciones.js'
+import { funcAddInfo, funcUpdateInfo, getUserInfo } from '../utils/funciones.js'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function ModalAddInfo(){
-	const { id_etiqueta, id_nota, setItemUpdate, id_info, setAddInfo, itemUpdate, setNotas, setModalNotas, setNoteUpdate, noteUpdate, setInfo } = store()
+
    const [category,setCategory] = useState('note')
+
+	const { setItemUpdate, id_info, setAddInfo, itemUpdate, setInfo } = store()
+
    const navigate = useNavigate()
+
 	return (
 		<div className='z-[99] fixed flex items-center justify-center bg-zinc-900 bg-opacity-90 top-0 right-0 left-0 bottom-0'>
    		<button 
@@ -32,12 +36,12 @@ export default function ModalAddInfo(){
 	      				funcUpdateInfo(id_info,document.querySelector('#category').value,document.querySelector('#title').value,document.querySelector('#details').value)
 	      				document.querySelector('#title').value = ''
 		      			document.querySelector('#details').value = ''
-                     getUserInfo(setInfo,navigate)
+                     setTimeout(()=>getUserInfo(setInfo,navigate),250)
 		      			setAddInfo(false)
 	      				setItemUpdate(false)
 	      			} else {
 		      			funcAddInfo(document.querySelector('#category').value,document.querySelector('#title').value,document.querySelector('#details').value)
-                     getUserInfo(setInfo,navigate)
+                     setTimeout(()=>getUserInfo(setInfo,navigate),250)
 		      			document.querySelector('#category').value = 'note'
                      document.querySelector('#title').value = ''
 		      			document.querySelector('#details').value = ''
