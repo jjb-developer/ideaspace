@@ -4,21 +4,21 @@ import { HiOutlineFolderAdd, HiOutlineClipboardList, HiOutlineClipboard, HiOutli
 
 import { useState } from 'react'
 import store from '../utils/store'
-import { deleteNote, deleteLabel, getUserInfo } from '../utils/funciones.js'
+import { deleteNote, deleteLabel, getUserInfo, funcDeleteInfo } from '../utils/funciones.js'
 import { useNavigate } from 'react-router-dom'
 
 
 export default function Sidebar(){
-	const { showBookmark, id_nota, setIdNota, id_etiqueta, setId_etiqueta, setModalNotas, setModalLabels, etiquetas, setEtiquetas, setNotas, notas, info, setId_Info, setAddInfo } = store()
+	const { showBookmark, id_nota, setInfo, setIdNota, id_etiqueta, setId_etiqueta, setModalNotas, setModalLabels, etiquetas, setEtiquetas, setNotas, notas, info, setId_Info, setAddInfo } = store()
 	const [height,setHeight] = useState(0)
 	const [filtro,setFiltro] = useState('all')
 	const navigate = useNavigate()
 	const color = {
-		1: 'text-yellow-600',
-		2: 'text-green-600',
-		3: 'text-blue-600',
-		4: 'text-orange-600',
-		5: 'text-purple-600',
+		1: 'bg-red-600',
+		2: 'bg-orange-500',
+		3: 'bg-yellow-400',
+		4: 'bg-green-300',
+		5: 'bg-blue-200',
 	}
 
 	return (
@@ -41,13 +41,20 @@ export default function Sidebar(){
 				</div>
 
 				{ info && (<ul className='h-full mb-16'>
-					{ info.filter((item)=>item.category === filtro || filtro === 'all').map((item,index)=> <li key={index} className='flex items-center h-12 px-3 hover:bg-zinc-200 duration-300 cursor-pointer'>
-						<div onClick={()=>setId_Info(item.id_info)} className='flex gap-x-2 items-center w-full h-full'>
-							{ item.category === 'note' && <BiClipboard className={`text-[1.4rem] ${color[item.color]}`}/> }
-							{ item.category === 'task' && <BiTask className={`text-[1.4rem] ${color[item.color]}`}/> }
-							{ item.category === 'list' && <BiListUl className={`text-[1.4rem] ${color[item.color]}`}/> }
+					{ info.filter((item)=>item.category === filtro || filtro === 'all').map((item,index)=> <li key={index} className={`flex items-center justify-between h-[52px] px-3 hover:bg-zinc-200 duration-300 group`}>
+						<div onClick={()=>setId_Info(item.id_info)} className='flex gap-x-2 items-center h-full w-full cursor-pointer'>
+							{ item.category === 'note' && <BiClipboard className='text-[1.2rem] text-zinc-500'/> }
+							{ item.category === 'task' && <BiTask className='text-[1.2rem] text-zinc-500'/> }
+							{ item.category === 'list' && <BiListUl className='text-[1.2rem] text-zinc-500'/> }
+							<span className={`w-4 h-4 rounded ${color[item.priority]}`}></span>
 							<span className='text-[0.97rem] tracking-tight capitalize'>{item.title}</span>
 						</div>
+						<button onClick={()=>{
+							funcDeleteInfo(item.id_info)
+							getUserInfo(setInfo,navigate)
+						}} className='flex rounded-full duration-300  hover:bg-zinc-100 w-9 h-7 justify-center items-center'>
+							<BiTrash className='text-[1.1rem] text-zinc-300 group-hover:text-zinc-500'/>
+						</button>
 					</li>)}
 				</ul>) }
 			</div>

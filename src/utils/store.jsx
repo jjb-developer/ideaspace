@@ -13,6 +13,8 @@ const store = create((set)=>({
 	setLabelUpdate: (bool)=> set((state)=> ({...state, labelUpdate: bool})),
 	noteUpdate: false,
 	setNoteUpdate: (bool)=> set((state)=> ({...state, noteUpdate: bool})),
+	itemUpdate: false,
+	setItemUpdate: (bool)=> set((state)=> ({...state, itemUpdate: bool})),
 	id_etiqueta: 1,
 	setId_etiqueta: (id)=> set((state)=> ({...state, id_etiqueta: id})),
 	id_nota: null,

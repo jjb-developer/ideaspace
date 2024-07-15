@@ -11,11 +11,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function Index(){
 	const navigate = useNavigate()
-	const { showBookmark, info, addInfo, setInfo, setEtiquetas, id_nota, notas, setNotas, id_etiqueta, setId_etiqueta, setShowBookmark, modalNotas, setModalNotas, modalLabels, setModalLabels, labelUpdate, setLabelUpdate, noteUpdate, setNoteUpdate } = store()
+	const { showBookmark, info, id_info, addInfo, setInfo, setEtiquetas, id_nota, notas, setNotas, id_etiqueta, setId_etiqueta, setShowBookmark, modalNotas, setModalNotas, modalLabels, setModalLabels, labelUpdate, setLabelUpdate, noteUpdate, setNoteUpdate, setAddInfo, setItemUpdate } = store()
 	useEffect(()=>{
 		getUserInfo(setInfo,navigate)
-		console.info('render index.jsx')
-		console.info('call to <getUserInfo()>')
+		console.info('render index.jsx [ getUserInfo() ]')
+		console.info(info)
 	},[])
 
 	return (
@@ -26,11 +26,12 @@ export default function Index(){
 		      	<button onClick={()=>setShowBookmark(!showBookmark)} className='px-5 h-full hover:text-blue-600 hover:bg-blue-50 duration-200'><BiBookBookmark className='text-[28px]'/></button>
 		      	<h2 className='text-xl font-medium tracking-tight'>Tú espacio de ideas</h2>
 		      	<button onClick={()=>{
-      					setModalNotas(true)
-      					setNoteUpdate(true)
-      					const nota_actual = notas?.filter((nota)=>nota.id_note === id_nota)[0]
+      					setAddInfo(true)
+      					setItemUpdate(true)
+      					const nota_actual = info?.filter((item)=>item.id_info === id_info)[0]
       					setTimeout(()=>{
-	      					document.querySelector('#note').value = nota_actual.note
+	      					document.querySelector('#category').value = nota_actual.category
+	      					document.querySelector('#title').value = nota_actual.title
 	      					document.querySelector('#details').value = nota_actual.details
       					},250)
       				}}

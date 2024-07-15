@@ -1,11 +1,11 @@
 import { BiPlusCircle } from 'react-icons/bi'
 import store from '../utils/store'
-import { updateNote, addNote, funcAddInfo, getUserInfo } from '../utils/funciones.js'
+import { updateNote, addNote, funcAddInfo, funcUpdateInfo, getUserInfo } from '../utils/funciones.js'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function ModalAddInfo(){
-	const { id_etiqueta, id_nota, setAddInfo, setNotas, setModalNotas, setNoteUpdate, noteUpdate, setInfo } = store()
+	const { id_etiqueta, id_nota, setItemUpdate, id_info, setAddInfo, itemUpdate, setNotas, setModalNotas, setNoteUpdate, noteUpdate, setInfo } = store()
    const [category,setCategory] = useState('note')
    const navigate = useNavigate()
 	return (
@@ -28,12 +28,13 @@ export default function ModalAddInfo(){
    			<button 
    				className='absolute top-[116px] right-7 text-xs font-bold uppercase tracking-tight py-2 px-3 rounded bg-sky-600 text-sky-950 hover:bg-sky-500 border-2 border-sky-600' 
    				onClick={()=>{
-	      			if(false){
-	      				updateNote(id_nota,{note_edit: document.querySelector('#note').value, details_edit: document.querySelector('#details').value}, id_etiqueta, setNotas)
-	      				document.querySelector('#note').value = ''
+	      			if(itemUpdate){
+	      				funcUpdateInfo(id_info,document.querySelector('#category').value,document.querySelector('#title').value,document.querySelector('#details').value)
+	      				document.querySelector('#title').value = ''
 		      			document.querySelector('#details').value = ''
+                     getUserInfo(setInfo,navigate)
 		      			setAddInfo(false)
-	      				setNoteUpdate(false)
+	      				setItemUpdate(false)
 	      			} else {
 		      			funcAddInfo(document.querySelector('#category').value,document.querySelector('#title').value,document.querySelector('#details').value)
                      getUserInfo(setInfo,navigate)
@@ -41,7 +42,7 @@ export default function ModalAddInfo(){
                      document.querySelector('#title').value = ''
 		      			document.querySelector('#details').value = ''
 		      			setAddInfo(false)
-	      			}}}>{ noteUpdate ? 'update':'create'}
+	      			}}}>{ itemUpdate ? 'update':'create'}
    			</button>
    		</div>
    	</div>)

@@ -116,7 +116,6 @@ export function allNotes(setState){
 
 
 
-
 export function funcAddInfo(category,title,details){
 	//console.info({'category': category, 'title': title, 'details': details})
 	return fetch(`http://localhost:8081/info`, {
@@ -125,7 +124,7 @@ export function funcAddInfo(category,title,details){
 			"Content-Type": "Application/json",
 			"Authorization": `Bearer ${localStorage.getItem("token")}`
 		},
-		body: JSON.stringify({'category': category, 'title': title, 'details': details, 'color': 5, 'priority': 3})
+		body: JSON.stringify({'category': category, 'title': title, 'details': details, 'color': 5, 'priority': 5})
 	})
 	.then(res => res.json())
 	.then(data => {
@@ -134,6 +133,53 @@ export function funcAddInfo(category,title,details){
 	})
 	.catch(error=> console.info(error))
 }
+
+
+
+
+export function funcUpdateInfo(id_info,category,title,details){
+	return fetch(`http://localhost:8081/info`, {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "Application/json",
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		},
+		body: JSON.stringify({'id_info': id_info, 'category': category, 'title': title, 'details': details})
+	})
+	.then(res => res.json())
+	.then(data => {
+		if(data.code === 201) console.info(`Tu ${category} fue actualizada satisfactoriamente!.`)
+		else return data
+	})
+	.catch(error=> console.info(error))
+}
+
+
+
+
+export function funcDeleteInfo(id_info){
+	return fetch(`http://localhost:8081/info`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "Application/json",
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
+		},
+		body: JSON.stringify({'id_info': id_info})
+	})
+	.then(res => res.json())
+	.then(data => {
+		if(data.code === 201) console.info(`Tu item fue eliminada satisfactoriamente!.`)
+		else return data
+	})
+	.catch(error=> console.info(error))
+}
+
+
+
+
+
+
+
 
 
 
