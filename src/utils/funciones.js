@@ -1,8 +1,24 @@
 //--------------------------  LOGIN  -----------------------------//
 
-export function userLogin(body,navigate,setActive){
+export function index(){
 
-	fetch(`${import.meta.env.VITE_URLocal}/login`, {
+	fetch(`${import.meta.env.VITE_URL}`, {
+		method: 'GET',
+		headers: {
+			"Content-Type": "Application/json",
+		}
+	})
+	.then(response=> response.json())
+	.then(data=> console.info(data))
+	.catch(error=>console.error(error))
+
+}
+
+
+
+export function userLogin(body,navigate,setActive){
+	
+	fetch(`${import.meta.env.VITE_URL}/login`, {
 		method: 'POST',
 		headers: {
 			"Content-Type": "Application/json"
@@ -11,13 +27,14 @@ export function userLogin(body,navigate,setActive){
 	})
 	.then(response=>response.json())
 	.then(data=>{
-		if(data.status == 200){
+		if(data.status == 201){
 			localStorage.setItem("token", data.token)
 			localStorage.setItem("username", data.username)
 			navigate('/index')
 			setActive(true)
-		} else {
-			console.info(data)
+		}
+		else {
+			console.info(data.message, data.status)
 		}
 	})
 
@@ -29,7 +46,7 @@ export function userLogin(body,navigate,setActive){
 //--------------------------  REGISTER  -----------------------------//
 
 export function register(body){
-	fetch(`${import.meta.env.VITE_URLocal}/register`, {
+	fetch(`${import.meta.env.VITE_URL}/register`, {
 		method: 'POST',
 		headers: {
 			"Content-Type": "Application/json"
@@ -38,8 +55,7 @@ export function register(body){
 	})
 	.then(res=>res.json())
 	.then(data=>{
-		if(data.code === 200) console.info('Usuario registrado exitosamente!.')
-		else console.info("error en la query de register")
+		console.info(data.response)
 	})
 	.catch(error=>console.error(error))
 }
@@ -51,7 +67,7 @@ export function register(body){
 
 export function getUserInfo(setInfo,navigate){
 
-	return fetch(`${import.meta.env.VITE_URLocal}/info`, {
+	return fetch(`${import.meta.env.VITE_URL}/info`, {
 		method: "GET",
 		headers: {
 			"Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -59,8 +75,8 @@ export function getUserInfo(setInfo,navigate){
 	})
 	.then(res => res.json())
 	.then(data => {
-		if(data.code === 200){
-			setInfo(data.info)
+		if(data.status === 201){
+			setInfo(data.response)
 		} else {
 			navigate('/')
 		}
@@ -71,15 +87,15 @@ export function getUserInfo(setInfo,navigate){
 
 
 
-export function funcAddInfo(category,title,details){
+export function funcAddInfo(category,title,details,color,priority){
 
-	return fetch(`${import.meta.env.VITE_URLocal}/info`, {
+	return fetch(`${import.meta.env.VITE_URL}/info`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "Application/json",
 			"Authorization": `Bearer ${localStorage.getItem("token")}`
 		},
-		body: JSON.stringify({'category': category, 'title': title, 'details': details, 'color': 5, 'priority': 5})
+		body: JSON.stringify({'category': category, 'title': title, 'details': details, 'color': color, 'priority': priority})
 	})
 	.then(res => res.json())
 	.then(data => {
@@ -92,14 +108,14 @@ export function funcAddInfo(category,title,details){
 
 
 
-export function funcUpdateInfo(id_info,category,title,details){
-	return fetch(`${import.meta.env.VITE_URLocal}/info`, {
-		method: "PATCH",
+export function funcUpdateInfo(id_info,category,title,details,color,priority){
+	return fetch(`${import.meta.env.VITE_URL}/info`, {
+		method: "PUT",
 		headers: {
 			"Content-Type": "Application/json",
 			"Authorization": `Bearer ${localStorage.getItem("token")}`
 		},
-		body: JSON.stringify({'id_info': id_info, 'category': category, 'title': title, 'details': details})
+		body: JSON.stringify({'id_info': id_info, 'category': category, 'title': title, 'details': details, 'color': color, 'priority': priority})
 	})
 	.then(res => res.json())
 	.then(data => {
@@ -113,7 +129,7 @@ export function funcUpdateInfo(id_info,category,title,details){
 
 
 export function funcDeleteInfo(id_info){
-	return fetch(`${import.meta.env.VITE_URLocal}/info`, {
+	return fetch(`${import.meta.env.VITE_URL}/info`, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "Application/json",

@@ -53,9 +53,9 @@ export default function Sidebar(){
 						</div>
 						<button onClick={()=>{
 							funcDeleteInfo(item.id_info)
-							setTimeout(()=>getUserInfo(setInfo,navigate),250)
+							setTimeout(()=>getUserInfo(setInfo,navigate),500)
 						}} className='flex rounded-full duration-300  hover:bg-zinc-100 w-9 h-7 justify-center items-center'>
-							<BiTrash className='text-[1.1rem] text-zinc-300 group-hover:text-zinc-500'/>
+							<BiTrash className='text-[1.1rem] text-zinc-200 group-hover:text-zinc-500'/>
 						</button>
 					</li>)}
 				</ul>) }

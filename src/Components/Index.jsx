@@ -35,6 +35,8 @@ export default function Index(){
 	      					document.querySelector('#category').value = nota_actual.category
 	      					document.querySelector('#title').value = nota_actual.title
 	      					document.querySelector('#details').value = nota_actual.details
+	      					document.querySelector('#color').value = nota_actual.color
+	      					document.querySelector('#priority').value = nota_actual.priority
       					},250)
       				}}
       				className='px-5 h-full hover:text-blue-600 hover:bg-blue-50 duration-200'><BiEditAlt className='text-[28px]'/></button>
