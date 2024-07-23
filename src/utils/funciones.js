@@ -28,8 +28,8 @@ export function userLogin(body,navigate,setActive){
 	.then(response=>response.json())
 	.then(data=>{
 		if(data.status == 201){
-			localStorage.setItem("token", data.token)
-			localStorage.setItem("username", data.username)
+			//localStorage.setItem("token", data.ideaspace.token)
+			localStorage.setItem("ideaspace", JSON.stringify(data.ideaspace))
 			navigate('/index')
 			setActive(true)
 		}
@@ -70,7 +70,7 @@ export function getUserInfo(setInfo,navigate){
 	return fetch(`${import.meta.env.VITE_URL}/info`, {
 		method: "GET",
 		headers: {
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
+			"Authorization": `Bearer ${JSON.parse(localStorage.getItem("ideaspace")).token}`
 		}
 	})
 	.then(res => res.json())
@@ -93,7 +93,7 @@ export function funcAddInfo(category,title,details,color,priority){
 		method: "POST",
 		headers: {
 			"Content-Type": "Application/json",
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
+			"Authorization": `Bearer ${JSON.parse(localStorage.getItem("ideaspace")).token}`
 		},
 		body: JSON.stringify({'category': category, 'title': title, 'details': details, 'color': color, 'priority': priority})
 	})
@@ -113,7 +113,7 @@ export function funcUpdateInfo(id_info,category,title,details,color,priority){
 		method: "PUT",
 		headers: {
 			"Content-Type": "Application/json",
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
+			"Authorization": `Bearer ${JSON.parse(localStorage.getItem("ideaspace")).token}`
 		},
 		body: JSON.stringify({'id_info': id_info, 'category': category, 'title': title, 'details': details, 'color': color, 'priority': priority})
 	})
@@ -133,7 +133,7 @@ export function funcDeleteInfo(id_info){
 		method: "DELETE",
 		headers: {
 			"Content-Type": "Application/json",
-			"Authorization": `Bearer ${localStorage.getItem("token")}`
+			"Authorization": `Bearer ${JSON.parse(localStorage.getItem("ideaspace")).token}`
 		},
 		body: JSON.stringify({'id_info': id_info})
 	})

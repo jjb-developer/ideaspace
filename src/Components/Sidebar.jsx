@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 export default function Sidebar(){
 
 	const navigate = useNavigate()
-	const { showBookmark, setInfo, info, setId_Info, setAddInfo } = store()
+	const { showBookmark, id_info, setInfo, info, setId_Info, setAddInfo } = store()
 
 	const [filtro,setFiltro] = useState('all')
 
@@ -19,8 +19,8 @@ export default function Sidebar(){
 		1: 'bg-red-600',
 		2: 'bg-orange-500',
 		3: 'bg-yellow-400',
-		4: 'bg-green-300',
-		5: 'bg-blue-200',
+		4: 'bg-blue-400',
+		5: 'bg-lime-400',
 	}
 
 	return (
@@ -43,19 +43,19 @@ export default function Sidebar(){
 				</div>
 
 				{ info && (<ul className='h-full mb-16'>
-					{ info.filter((item)=>item.category === filtro || filtro === 'all').map((item,index)=> <li key={index} className={`flex items-center justify-between h-[52px] px-3 hover:bg-zinc-200 duration-300 group`}>
-						<div onClick={()=>setId_Info(item.id_info)} className='flex gap-x-2 items-center h-full w-full cursor-pointer'>
-							{ item.category === 'note' && <BiClipboard className='text-[1.2rem] text-zinc-500'/> }
-							{ item.category === 'task' && <BiTask className='text-[1.2rem] text-zinc-500'/> }
-							{ item.category === 'list' && <BiListUl className='text-[1.2rem] text-zinc-500'/> }
-							<span className={`w-4 h-4 rounded ${color[item.priority]}`}></span>
-							<span className='text-[0.97rem] tracking-tight capitalize'>{item.title}</span>
+					{ info.filter((item)=>item.category === filtro || filtro === 'all').map((item,index)=> <li key={index} className={`flex items-center justify-between h-[52px] px-3 hover:bg-zinc-200 duration-300 group ${item.id_info === id_info ? 'bg-zinc-100':''}`}>
+						<div onClick={()=>setId_Info(item.id_info)} className={`flex gap-x-2 items-center h-full w-full cursor-pointer `}>
+							{ item.category === 'note' && <BiClipboard className='text-[1.2rem] text-zinc-500 shrink-0'/> }
+							{ item.category === 'task' && <BiTask className='text-[1.2rem] text-zinc-500 shrink-0'/> }
+							{ item.category === 'list' && <BiListUl className='text-[1.2rem] text-zinc-500 shrink-0'/> }
+							<span className={`w-4 h-4 shrink-0 rounded ${color[item.priority]}`}></span>
+							<span className='text-[0.97rem] tracking-tight capitalize line-clamp-1'>{item.title}</span>
 						</div>
 						<button onClick={()=>{
 							funcDeleteInfo(item.id_info)
 							setTimeout(()=>getUserInfo(setInfo,navigate),500)
 						}} className='flex rounded-full duration-300  hover:bg-zinc-100 w-9 h-7 justify-center items-center'>
-							<BiTrash className='text-[1.1rem] text-zinc-200 group-hover:text-zinc-500'/>
+							<BiTrash className='text-[1.1rem] text-zinc-300 group-hover:text-zinc-500'/>
 						</button>
 					</li>)}
 				</ul>) }

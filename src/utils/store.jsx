@@ -12,7 +12,13 @@ const store = create((set)=>({
 	info: [],
 	setInfo: (data)=> set((state)=> ({...state, info: data})),
 	addInfo: false,
-	setAddInfo: (bool)=> set((state)=> ({...state, addInfo: bool}))
+	setAddInfo: (bool)=> set((state)=> ({...state, addInfo: bool})),
+	category: 'nota',
+	setCategory: (item)=> set((state)=> ({...state, category: item})),
+	color: 5,
+	setColor: (num)=> set((state)=> ({...state, color: num})),
+	priority: 5,
+	setPriority: (num)=> set((state)=> ({...state, priority: num}))
 }))
 
 export default store;

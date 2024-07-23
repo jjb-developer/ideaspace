@@ -16,13 +16,12 @@ export default function Navbar(){
 			</ul>
 			<div className={`${userActive ? 'block':'hidden'} flex items-center gap-x-2 bg-zinc-50 py-2 px-5 rounded`}>
 				<div className='flex flex-col items-end'>
-					<h4 className='font-medium text-xl capitalize tracking-tight leading-[1rem]'>{localStorage.getItem('username')}</h4>
+					<h4 className='font-medium text-xl capitalize tracking-tight leading-[1rem]'>{ localStorage.getItem('ideaspace') ? JSON.parse(localStorage.getItem('ideaspace')).user:'' }</h4>
 				</div>
 				<button onClick={()=>{
 					navigate('/')
 					setUserActive(false)
-					localStorage.removeItem('username')
-					localStorage.removeItem('token')
+					localStorage.removeItem('ideaspace')
 				}} className='py-1.5 px-1.5 rounded bg-rose-100 hover:bg-rose-200 duration-300'>
 					<BiLogOut className='text-[1.25rem] text-rose-900 -translate-x-[2px]'/>
 				</button>
@@ -30,3 +29,5 @@ export default function Navbar(){
 		</nav>
 	)
 }
+
+//
