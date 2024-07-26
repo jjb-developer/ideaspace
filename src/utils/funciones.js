@@ -145,3 +145,80 @@ export function funcDeleteInfo(id_info){
 	.catch(error=> console.info(error))
 }
 
+
+
+
+//------------------------- Utilidades ---------------------------------------//
+
+export function negrita(event){
+	let selected = window.getSelection()
+	//console.info(selected.rangeCount)
+	if(selected.rangeCount > 0){
+		const range = selected.getRangeAt(0)
+		const strong = document.createElement('strong')
+		strong.textContent = range.toString()
+		range.deleteContents()
+		range.insertNode(strong)
+	}
+}
+
+
+export function removeNegrita(event){
+	let textContent = event.target.textContent
+	let parentTarget = event.target.parentNode
+	const selection =  window.getSelection()
+	if(selection.rangeCount > 0 && event.target.nodeName === 'STRONG'){
+		const range = selection.getRangeAt(0)
+		const fragment = document.createTextNode(textContent)
+		parentTarget.removeChild(event.target)
+		range.insertNode(fragment)
+		selection.removeAllRanges()
+	}
+}
+
+
+export function resaltar(event){
+	let selected = window.getSelection()
+	//console.info(selected.rangeCount)
+	if(selected.rangeCount > 0){
+		const range = selected.getRangeAt(0)
+		const span = document.createElement('span')
+		span.textContent = range.toString()
+		span.classList.add('bg-yellow-200')
+		range.deleteContents()
+		range.insertNode(span)
+	}
+}
+
+
+export function removeResaltado(event){
+	let textContent = event.target.textContent
+	let parentTarget = event.target.parentNode
+	const selection =  window.getSelection()
+	if(selection.rangeCount > 0 && event.target.nodeName === 'SPAN'){
+		const range = selection.getRangeAt(0)
+		const fragment = document.createTextNode(textContent)
+		parentTarget.removeChild(event.target)
+		range.insertNode(fragment)
+		selection.removeAllRanges()
+	}
+}
+
+
+
+function textToBold(texto,start_selection,end_selection){
+	let start = texto.slice(0,start_selection)
+	let selection = texto.slice(start_selection,end_selection)
+	let end = texto.slice(end_selection)
+	return`${start}<b class='bg-orange-300'>${selection}</b>${end}`
+}
+
+
+
+function selectedText(event){
+	let selected = window.getSelection()
+	let a = selected.baseOffset
+	let b = selected.extentOffset
+	let html = event.target.textContent
+	event.target.innerHTML = textToBold(html,a,b)
+}

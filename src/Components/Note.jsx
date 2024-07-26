@@ -1,6 +1,19 @@
 import store from '../utils/store'
 import DOMPurify from 'dompurify'
 
+
+function getParentElement(event){
+
+	let target = event.target
+	let textContent = target.textContent
+	let parentTarget = target.parentNode
+	//parentTarget.removeChild(target)
+	//console.info(event.target.parentNode)
+	console.info(event)
+}
+
+
+
 export default function Note(){
 	const { info, id_info, showBookmark } = store()
 	const colores = ['border-red-600', 'border-orange-500', 'border-yellow-400', 'border-blue-400', 'border-lime-400']
@@ -12,8 +25,8 @@ export default function Note(){
 				return item }}).map((item,index)=>{
 				return (
 					<div key={index} className={`py-10 ${ showBookmark ? 'px-[15%]':'px-12'}`}>
-						<h4 className={`px-4 outline-none text-2xl font-bold tracking-tight capitalize border-l-8 ${colores[item.priority-1]}`}>{item.title}</h4>
-						<p className='py-2 px-0.5 outline-none mt-7 text-[0.99rem] tracking-[-0.005rem] ' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item.details)}}></p>
+						<h4 className={`px-4 outline-none text-2xl font-bold tracking-tight border-l-8 ${colores[item.priority-1]}`}>{item.title}</h4>
+						<p className='py-2 px-0.5 outline-none mt-7 text-[1.085rem] tracking-[-0.005rem] ' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item.details)}}></p>
 					</div>
 				)
 			})}
