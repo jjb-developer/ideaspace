@@ -150,6 +150,100 @@ export function funcDeleteInfo(id_info){
 
 //------------------------- Utilidades ---------------------------------------//
 
+
+export function convertirToNegrita(range){
+	if(range.startContainer.parentNode.nodeName === 'STRONG'){
+		//console.info(`dentro de un ${range.startContainer.parentNode.nodeName}`)
+		const fragment = document.createTextNode(range.toString())
+		range.deleteContents()
+		range.startContainer.parentNode.remove()
+		range.insertNode(fragment)
+
+	} else {
+		//console.info(`dentro de un ${range.startContainer.parentNode.nodeName}`)
+		const strong = document.createElement('strong')
+		strong.textContent = range.toString()
+		range.deleteContents()
+		range.insertNode(strong)
+	}
+	window.getSelection().removeAllRanges()
+
+/*
+document.createTextNode('hello world')
+range.startContents().parentNode.removeChild(target)
+range.surroundContents(tag)
+range.deleteContents()
+range.insertNode(tag)
+*/
+}
+
+
+
+export function convertirToCursiva(range){
+	if(range.startContainer.parentNode.nodeName === 'I'){
+		const fragment = document.createTextNode(range.toString())
+		range.deleteContents()
+		range.startContainer.parentNode.remove()
+		range.insertNode(fragment)
+
+	} else {
+		const cursive = document.createElement('i')
+		cursive.textContent = range.toString()
+		range.deleteContents()
+		range.insertNode(cursive)
+	}
+	window.getSelection().removeAllRanges()
+}
+
+
+
+export function resaltarTexto(range){
+	if(range.startContainer.parentNode.nodeName === 'SPAN'){
+		const fragment = document.createTextNode(range.toString())
+		range.deleteContents()
+		range.startContainer.parentNode.remove()
+		range.insertNode(fragment)
+
+	} else {
+		const span = document.createElement('span')
+		span.textContent = range.toString()
+		span.classList.add('bg-yellow-200')
+		range.deleteContents()
+		range.insertNode(span)
+	}
+	window.getSelection().removeAllRanges()
+}
+
+
+
+export function convertirToNegrita1(range){
+	//let range = selected.getRangeAt(0)
+	//console.info(range)
+	console.info(range.startContainer.parentNode.nodeName)
+	if(range.startContainer.parentNode.nodeName === 'STRONG'){
+		console.info('negrita')
+		//const fragment = document.createTextNode(range.toString())
+		//range.deleteContents()
+		//range.insertNode(fragment)
+	} else {
+		console.info('no negrita')
+		//const strong = document.createElement('strong')
+		//strong.textContent = range.toString()
+		//range.deleteContents()
+		//range.insertNode(strong)
+	}
+	window.getSelection().removeAllRanges()
+
+	//console.info(range.startContainer.parentNode.nodeName)
+	//console.info(fragment)
+	//const strong = document.createElement('strong')
+	//strong.textContent = range.toString()
+	//range.deleteContents()
+	//range.insertNode(strong)
+}
+
+
+
 export function negrita(event){
 	let selected = window.getSelection()
 	//console.info(selected.rangeCount)
