@@ -316,3 +316,39 @@ function selectedText(event){
 	let html = event.target.textContent
 	event.target.innerHTML = textToBold(html,a,b)
 }
+
+
+
+//------------------------------   ESTILOS   ------------------------------//
+
+export function addEncabezado(){
+	const paper = document.getElementById('paper')
+	const H1 = document.createElement('h1')
+	H1.textContent = 'Tesis de Grado'
+	H1.classList.add('text-3xl', 'font-bold', 'tracking-tight', 'uppercase', 'leading-[2rem]', 'my-6')
+	paper.appendChild(H1)
+}
+
+export function addTitulo(){
+	const paper = document.getElementById('paper')
+	const H1 = document.createElement('h2')
+	H1.textContent = 'Dominando el lenguaje Golang'
+	H1.classList.add('text-2xl', 'font-bold', 'tracking-tight', 'leading-[1.5rem]', 'my-5')
+	paper.appendChild(H1)
+}
+
+export function addSubtitulo(){
+	const paper = document.getElementById('paper')
+	const H1 = document.createElement('h3')
+	H1.textContent = 'Introducción'
+	H1.classList.add('text-xl', 'font-bold', 'tracking-tight', 'leading-[1.25rem]', 'my-4')
+	paper.appendChild(H1)
+}
+
+export function addParrafo(){
+	const paper = document.getElementById('paper')
+	const p = document.createElement('p')
+	p.textContent = 'Go was conceive d in Septemb er 2007 by Rob ert Gries emer, Rob Pike, and Ken Thomps on, all at Google, and was announced in Nov emb er 2009. The goals of the langu age and its accompany ing tools were to be expressive, efficient in bot h comp ilation and exe cut ion, and effec tive in writing reliable and robust programs. Go bears a sur face simi lar ity to C and, like C, is a tool for prof essional programmers, achie ving maximum effe ct wit h minimum means.'
+	p.classList.add('text-[18px]', 'leading-[1.57rem]', 'my-6')
+	paper.appendChild(p)
+}
