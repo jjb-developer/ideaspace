@@ -3,9 +3,9 @@ import store from '../utils/store'
 import { BiBookBookmark, BiBookContent, BiPlus } from "react-icons/bi"
 import { getUserInfo } from '../utils/funciones'
 
-import Sidebar from './Sidebar.jsx'
+import Sidebar from './Sidebar'
 import ModalAddInfo from './ModalAddInfo'
-import Note from './Note.jsx'
+import Note from './Note'
 import NavLower from './NavbarLower'
 import { useNavigate } from "react-router-dom";
 

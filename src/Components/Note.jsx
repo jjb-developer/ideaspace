@@ -5,18 +5,6 @@ import { BiItalic, BiImageAdd, BiHighlight, BiBold } from 'react-icons/bi'
 import { convertirToNegrita, convertirToCursiva, resaltarTexto } from '../utils/funciones.js'
 
 
-function getParentElement(event){
-
-	let target = event.target
-	let textContent = target.textContent
-	let parentTarget = target.parentNode
-	//parentTarget.removeChild(target)
-	//console.info(event.target.parentNode)
-	console.info(event)
-}
-
-
-
 export default function Note(){
 	const [range,setRange] = useState()
 	const { info, id_info, showBookmark } = store()
@@ -28,7 +16,7 @@ export default function Note(){
 			if(item.id_info === id_info){
 				return item }}).map((item,index)=>{
 				return (
-					<div key={index} className={`relative py-10 ${ showBookmark ? 'px-[15%]':'px-12'}`}>
+					<div key={index} className={`relative py-10 ${ showBookmark ? 'px-[20%]':'px-12'}`}>
 						{/*
 						<div className='absolute top-0 right-[50%] translate-x-[50%] flex items-center gap-x-2 py-3 border-b-2'>
 		               <BiBold onClick={()=> convertirToNegrita(range) } className='text-[1.45rem] hover:text-orange-500 duration-300 cursor-pointer'/>
