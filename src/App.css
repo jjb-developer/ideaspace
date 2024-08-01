@@ -11,7 +11,7 @@
 .custom-scrollbar::-webkit-scrollbar {
 	width: 4px;
 	/*height: 10px;*/
-	background-color: #f1f2f3;
+	background-color: #eee;
 }
 
 

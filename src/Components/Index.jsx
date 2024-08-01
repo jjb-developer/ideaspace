@@ -22,11 +22,11 @@ export default function Index(){
 	},[])
 
 	return (
-		<main className='h-screen overflow-hidden'>
+		<main className='flex flex-col'>
 			{ addInfo && <ModalAddInfo/> }
 			<NavLower/>
-			<div className='overflow-x-hidden'>
-				<div className="flex">
+			<div className='flex-1'>
+				<div className="flex h-[inherit] h-full h-fit h-content">
 					<Sidebar/>
 					<Note/>
 				</div>

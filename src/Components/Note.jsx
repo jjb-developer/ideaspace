@@ -23,7 +23,7 @@ export default function Note(){
 	const colores = ['border-red-600', 'border-orange-500', 'border-yellow-400', 'border-blue-400', 'border-lime-400']
 
 	return (
-		<article className={`duration-200 flex-grow w-full bg-zinc-50`}>
+		<article className={`duration-200 pb-24 w-full h-screen custom-scrollbar overflow-hidden overflow-y-auto`}>
 		{ info?.filter((item)=>{
 			if(item.id_info === id_info){
 				return item }}).map((item,index)=>{
@@ -37,7 +37,7 @@ export default function Note(){
 						</div>
 						*/}
 						<h4 className={`px-4 outline-none text-2xl font-bold tracking-tight border-l-8 ${colores[item.priority-1]}`}>{item.title}</h4>
-						<p className='py-2 px-0.5 outline-none mt-7 text-[1.12rem] tracking-[-0.005rem] ' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item.details)}}></p>
+						<p className='py-2 px-0.5 outline-none mt-7 text-[1.12rem] tracking-[-0.005rem]' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item.details)}}></p>
 					</div>
 				)
 			})}

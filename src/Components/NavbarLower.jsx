@@ -1,17 +1,23 @@
-import { BiBookContent, BiPlus, BiEditAlt } from "react-icons/bi"
+import { HiOutlineBookOpen, HiOutlinePencilAlt, HiOutlineDocument } from "react-icons/hi"
 import store from '../utils/store'
 
+				{/*
+
+				*/}
+
 export default function Navbar(){
-	const { setAddInfo, setItemUpdate, setCategory, setColor, setPriority } = store()
+	const { id_info, info, showBookmark, setShowBookmark, setAddInfo, setItemUpdate, setCategory, setColor, setPriority } = store()
 
 	return (
 		<div>
-			<div className='flex items-center justify-between border-b-2 h-12 pl-5'>
+			<div className='flex items-center justify-between border-b-2 h-10 px-[4%]'>
 				<div className='flex items-center gap-x-2'>
-					<BiBookContent className='text-[1.3rem]'/>
-					<h3 className='text-[1.05rem]'>Bookmark</h3>
+					<button onClick={()=>setShowBookmark(!showBookmark)} className='px-1 hover:text-orange-500 duration-200'>
+						<HiOutlineBookOpen className='text-[1.35rem]'/>
+					</button>
+					<h3 className='text-[0.95rem] font-bold text-zinc-700 uppercase tracking-tight'>Bookmark</h3>
 				</div>
-				<div className='flex items-center gap-x-2'>
+				<div className='flex items-center'>
 		      	<button onClick={()=>{
 	   					setAddInfo(true)
 	   					setItemUpdate(true)
@@ -24,9 +30,11 @@ export default function Navbar(){
 	      					document.querySelector('#details').innerHTML = nota_actual.details
 	   					},250)
 	   				}}
-	   				className='p-3 hover:text-orange-500 duration-200'><BiEditAlt className='text-[25px]'/>
+	   				className='p-2 hover:text-orange-500 duration-200 group relative'><HiOutlinePencilAlt className='text-[1.25rem]'/>
+	   				<span className='w-28 hidden group-hover:block absolute top-[6px] right-8 text-xs capitalize bg-orange-300 text-orange-800 font-bold py-1 px-2.5 rounded'>editar nota</span>
 	   			</button>
-					<button onClick={()=>setAddInfo(true)} className='p-3 hover:text-orange-500 duration-200'><BiPlus className='text-[25px]'/>
+					<button onClick={()=>setAddInfo(true)} className='p-2 hover:text-orange-500 duration-200 group relative'><HiOutlineDocument className='text-[1.25rem]'/>
+						<span className='w-28 hidden group-hover:block absolute top-[6px] right-8 text-xs capitalize bg-orange-300 text-orange-800 font-bold py-1 px-2.5 rounded'>nueva nota</span>
 					</button>
 				</div>
 			</div>

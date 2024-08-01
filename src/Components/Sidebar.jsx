@@ -38,8 +38,11 @@ export default function Sidebar(){
 		12: 'Dic'
 	}
 
+	//overflow-x-scroll custom-scrollbar overflow-x-hidden
+
 	return (
-		<aside className={`overflow-x-scroll custom-scrollbar shrink-0 overflow-x-hidden bg-white border-r-2 h-screen duration-200 ${showBookmark ? 'w-0':'w-72'}`}>
+
+		<aside className={`pb-28 h-screen custom-scrollbar overflow-hidden overflow-y-auto shrink-0 bg-white border-r-2 duration-200 ${showBookmark ? 'w-0':'w-72'}`}>
 			<div className={`w-72 shrink-0 duration-100 delay-100 ${showBookmark ? '-translate-x-64':'translate-x-0'}`}>
 
 				{/*
@@ -50,7 +53,7 @@ export default function Sidebar(){
 					<button onClick={()=>setFiltro('all')} className='w-1/4 h-full hover:bg-yellow-200 duration-200'><BiArchive className='text-[1.35rem] mx-auto'/></button>
 				</div>
 				*/}
-				{ info && (<ul className='h-full mb-16'>
+				{ info && (<ul className=''>
 					{ info.filter((item)=>item.category === filtro || filtro === 'all').map((item,index)=> <li key={index} className={`flex items-center justify-between h-[52px] px-3 hover:bg-zinc-200 duration-300 group ${item.id_info === id_info ? 'bg-zinc-100':''}`}>
 						<div onClick={()=>{
 							setId_Info(item.id_info)
