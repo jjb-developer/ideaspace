@@ -18,7 +18,11 @@ const store = create((set)=>({
 	color: 5,
 	setColor: (num)=> set((state)=> ({...state, color: num})),
 	priority: 5,
-	setPriority: (num)=> set((state)=> ({...state, priority: num}))
+	setPriority: (num)=> set((state)=> ({...state, priority: num})),
+	contentEditableOriginal: '',
+	setContentEditableOriginal: (item)=> set((state)=> ({...state, contentEditableOriginal: item})),
+	boton: 'create',
+	setBoton: (btn)=> set((state)=> ({...state, boton: btn}))
 }))
 
 export default store;

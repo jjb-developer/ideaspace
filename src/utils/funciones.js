@@ -109,6 +109,7 @@ export function funcAddInfo(category,title,details,color,priority){
 
 
 export function funcUpdateInfo(id_info,category,title,details,color,priority){
+	//console.info({'id_info': id_info, 'category': category, 'title': title, 'details': details, 'color': color, 'priority': priority})
 	return fetch(`${import.meta.env.VITE_URL}/info`, {
 		method: "PUT",
 		headers: {
@@ -351,4 +352,22 @@ export function addParrafo(){
 	p.textContent = 'Go was conceive d in Septemb er 2007 by Rob ert Gries emer, Rob Pike, and Ken Thomps on, all at Google, and was announced in Nov emb er 2009. The goals of the langu age and its accompany ing tools were to be expressive, efficient in bot h comp ilation and exe cut ion, and effec tive in writing reliable and robust programs. Go bears a sur face simi lar ity to C and, like C, is a tool for prof essional programmers, achie ving maximum effe ct wit h minimum means.'
 	p.classList.add('text-[18px]', 'leading-[1.57rem]', 'my-6')
 	paper.appendChild(p)
+}
+
+
+
+let activarComparacion;
+function startInterval(){
+	activarComparacion = setInterval(()=>{
+		if(document.getElementById('note_details').innerHTML !== contentEditableOriginal.details){
+			console.info('Hemos guardado esto:')
+			console.info(document.getElementById('note_details').innerHTML)
+			console.info(' ')
+		}
+		setSave(false)
+	},15000)
+}
+
+function stopInterval(){
+	clearInterval(activarComparacion)
 }

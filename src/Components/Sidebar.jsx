@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 export default function Sidebar(){
 
 	const navigate = useNavigate()
-	const { showBookmark, id_info, setInfo, info, setId_Info, setAddInfo } = store()
+	const { showBookmark, id_info, setBoton, setInfo, info, setPriority, setId_Info, setAddInfo, setContentEditableOriginal } = store()
 
 	const [filtro,setFiltro] = useState('all')
 
@@ -21,6 +21,14 @@ export default function Sidebar(){
 		3: 'bg-yellow-400',
 		4: 'bg-blue-400',
 		5: 'bg-lime-400'
+	}
+
+	const BORDER = {
+		1: 'border-red-600',
+		2: 'border-orange-500',
+		3: 'border-yellow-400',
+		4: 'border-blue-400',
+		5: 'border-lime-400'
 	}
 
 	const MONTH = {
@@ -56,8 +64,14 @@ export default function Sidebar(){
 				{ info && (<ul className=''>
 					{ info.filter((item)=>item.category === filtro || filtro === 'all').map((item,index)=> <li key={index} className={`flex items-center justify-between h-[52px] px-3 hover:bg-zinc-200 duration-300 group ${item.id_info === id_info ? 'bg-zinc-100':''}`}>
 						<div onClick={()=>{
+							setBoton('update')
 							setId_Info(item.id_info)
-							//console.info(item) //BORRAR
+							const title = document.getElementById('note_title')
+							title.innerHTML = item.title
+							const details = document.getElementById('note_details')
+							details.innerHTML = item.details
+							setPriority(item.priority)
+							setContentEditableOriginal(item)
 						}} className={`flex items-center gap-x-3 justify-start h-full w-full cursor-pointer `}>
 							{/*
 							{ item.category === 'note' && <BiClipboard className='text-[1.2rem] text-zinc-500 shrink-0'/> }
@@ -72,6 +86,14 @@ export default function Sidebar(){
 						</div>
 						<button onClick={()=>{
 							funcDeleteInfo(item.id_info)
+							setId_Info(0)
+							setBoton('create')
+							const title = document.getElementById('note_title')
+							title.innerHTML = ''
+							const details = document.getElementById('note_details')
+							details.innerHTML = ''
+							setPriority(5)
+							setContentEditableOriginal('')
 							setTimeout(()=>getUserInfo(setInfo,navigate),500)
 						}} className='flex rounded-full duration-300  hover:bg-zinc-100 w-9 h-7 justify-center items-center'>
 							<BiTrash className='text-[1.1rem] text-zinc-100 group-hover:text-zinc-400 duration-200'/>
